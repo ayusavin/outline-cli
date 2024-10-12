@@ -360,11 +360,7 @@ ip_rule_main_table() {
 #   0 if the operation succeeds;
 #   otherwise, a non-zero status.
 #################################################
-ip_rule_fix() {
-  ip rule "${1:-"add"}" from all to "192.168.0.0/16" table "`ip_rule_main_table`" priority "${IP_RULE_PRIORITY}"
-  ip rule "${1:-"add"}" from all to  "172.16.0.0/12" table "`ip_rule_main_table`" priority "${IP_RULE_PRIORITY}"
-  # Outline uses 10.0.0.0/8, so let's avoid interfering with that. It's unlikely anyone will need it anyways.
-}
+ip_rule_fix() {}
 
 #################################################
 # Copies the source file to the target location
