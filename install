@@ -5,7 +5,7 @@
 #################################################
 # The URL of the repo that contains this file.
 #################################################
-REPO="https://github.com/Kir-Antipov/outline-cli"
+REPO="https://github.com/ayusavin/outline-cli"
 
 #################################################
 # The priority assigned to the routing rules
@@ -348,21 +348,6 @@ ip_rule_main_table() {
 }
 
 #################################################
-# Fixes the routing rules when using
-# the Outline Client, which directs ALL requests
-# through the VPN server, and, obviously, breaks
-# access to the LAN.
-# Arguments:
-#   $1. The operation to perform.
-#       Supports "add" or "delete".
-#       Defaults to "add" if not supplied.
-# Returns:
-#   0 if the operation succeeds;
-#   otherwise, a non-zero status.
-#################################################
-ip_rule_fix() {}
-
-#################################################
 # Copies the source file to the target location
 # and sets the permissions on the copied file.
 # Arguments:
@@ -527,7 +512,7 @@ uninstall() {
   rm -f "/usr/share/polkit-1/actions/vpn-manager.policy"
   rm -f "/etc/NetworkManager/dispatcher.d/vpn-manager-refresh"
 
-  ip_rule_fix delete
+   delete
 
   if [ "${1}" = "true" ]; then
     rm -rf "/var/lib/outline"
@@ -623,11 +608,6 @@ install_local() {
   # NetworkManager integration.
   if command_exists NetworkManager && confirm "Enable NetworkManager integration?" "y"; then
     unwrap "src/etc/NetworkManager/dispatcher.d/vpn-manager-refresh" 500
-  fi
-
-  # LAN fix.
-  if confirm "Enable LAN access while the VPN connection is active?" "y"; then
-    ip_rule_fix
   fi
 }
 
